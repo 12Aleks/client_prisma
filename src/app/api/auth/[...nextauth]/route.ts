@@ -2,6 +2,9 @@ import NextAuth, {NextAuthOptions} from "next-auth";
 import CredentialsProvider from 'next-auth/providers/credentials'
 
 const Backend_URL = process.env.NEXT_PUBLIC_BACKEND_NAME;
+
+
+
 export const authOptions: NextAuthOptions = {
     providers: [
         CredentialsProvider({
@@ -11,10 +14,9 @@ export const authOptions: NextAuthOptions = {
                 password: { label: "Password", type: "password" }
             },
             async authorize(credentials, req) {
-                if(!credentials?.username || credentials?.password) return null;
+                if (!credentials?.username || !credentials?.password) return null;
 
                 const {username, password} = credentials;
-
                 const res = await fetch(Backend_URL + "/api/auth/login", {
                     method: "POST",
                     body: JSON.stringify({
@@ -22,8 +24,8 @@ export const authOptions: NextAuthOptions = {
                         password
                     }),
                     headers: {
-                        "Content-Type": "application/json"
-                    }
+                        "Content-Type": "application/json",
+                    },
                 });
 
                 if (res.status == 401) {
@@ -36,7 +38,24 @@ export const authOptions: NextAuthOptions = {
 
             }
         })
-    ]
+    ],
+
+
+    callbacks: {
+        async jwt({token, user}){
+
+            if(user) return  {...token, ...user};
+
+            return token
+        },
+
+        async session({token,session}){
+            session.user = token.user;
+            session.backendTokens = token.backendTokens;
+
+            return session;
+        }
+    }
 };
 
 const handler = NextAuth(authOptions);
