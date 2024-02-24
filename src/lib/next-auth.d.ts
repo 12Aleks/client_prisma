@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 
-//we change the data format to the format that we receive from the server
+//we change the type format to the format that we receive from the server
 declare module "next-auth"{
     interface Session{
         user: {
