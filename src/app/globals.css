@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+ .card{
+    border-radius: 5px;
+}
+
+.signUpFormWrapper{
+    width: 100%;
+    height: calc( 100vh - 77px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #161b22;
+}
+.signUpForm{
+    max-width: 600px;
+    width: 100%;
+    background: #0d1117;
+}

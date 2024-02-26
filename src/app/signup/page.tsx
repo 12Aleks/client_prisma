@@ -14,7 +14,8 @@ const Backend_URL = process.env.NEXT_PUBLIC_BACKEND_NAME;
 const SignUpPage = () => {
 
     const register = async () => {
-        const res = await fetch(Backend_URL + "/auth/register", {
+
+        const res = await fetch(Backend_URL + "/api/auth/registration", {
             method: "POST",
             body: JSON.stringify({
                 name: data.current.name,
@@ -25,6 +26,8 @@ const SignUpPage = () => {
                 "Content-Type": "application/json",
             },
         });
+
+
         if (!res.ok) {
             alert(res.statusText);
             return;
@@ -33,6 +36,8 @@ const SignUpPage = () => {
         alert("User Registered!");
         console.log({ response });
     };
+
+
     const data = useRef<FormInputs>({
         name: "",
         email: "",
@@ -41,11 +46,12 @@ const SignUpPage = () => {
 
 
     return (
-        <div className="m-2 border rounded overflow-hidden shadow">
-            <div className="p-2 bg-gradient-to-b from-white to-slate-200 text-slate-600">
+        <div className="signUpFormWrapper">
+        <div className="m-2 border rounded overflow-hidden shadow signUpForm">
+            <div className="tracking-widest p-2 bg-gray-900 to-slate-200 text-gray-300">
                 Sign up
             </div>
-            <div className="p-2 flex flex-col gap-6">
+            <div className="p-5 flex flex-col gap-6">
                 <InputBox
                     autoComplete="off"
                     name="name"
@@ -61,18 +67,19 @@ const SignUpPage = () => {
                 />
                 <InputBox
                     name="password"
-                    labelText="password"
+                    labelText="Password"
                     type="password"
                     required
                     onChange={(e) => (data.current.password = e.target.value)}
                 />
                 <div className="flex justify-center items-center gap-2">
-                    <Button onClick={register}>Submit</Button>
-                    <Link className="" href={"/"}>
+                    <Button onClick={register} className="rounded-sm tracking-widest text-gray-300 bg-gray-900 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Submit</Button>
+                    <Link className="text-gray-300 tracking-widest pl-3" href={"/"}>
                         Cancel
                     </Link>
                 </div>
             </div>
+        </div>
         </div>
     );
 };

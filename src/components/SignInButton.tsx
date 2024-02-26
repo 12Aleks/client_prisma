@@ -28,7 +28,7 @@ const SignInButton = () => {
                 Sign In
             </Link>
             <Link href={"/signup"}
-                className="flex gap-4 ml-auto bg-black text-white p-2 rounded"
+                className="flex gap-4 ml-auto p-2 rounded-sm tracking-widest text-gray-300 bg-gray-900 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 px-5 py-2.5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
             >
                 Sign Up
             </Link>
