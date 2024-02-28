@@ -1,3 +1,4 @@
+'use client';
 import Link from "next/link";
 import React from "react";
 import SignInButton from "./SignInButton";
@@ -11,9 +12,9 @@ const AppBar = () => {
             </Link>
             <Link
                 className="transition-colors hover:text-blue-500 pt-2 pb-2"
-                href={"/dashboard"}
+                href={"/adminpanel"}
             >
-                DashBoard
+                Admin panel
             </Link>
             <SignInButton />
         </header>
