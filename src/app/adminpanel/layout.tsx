@@ -1,8 +1,9 @@
 import Submenu from "@/components/Submenu";
+import {ReactNode} from "react";
 
 
 type Props = {
-    children: React.ReactNode;
+    children: ReactNode;
 };
 
 const AdminPanelLayout = async (props: Props) => {

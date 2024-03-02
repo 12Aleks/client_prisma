@@ -1,5 +1,5 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { getServerSession } from "next-auth";
+import { getServerSession } from "next-auth"
 
 type Props = {
     params: {
@@ -9,9 +9,10 @@ type Props = {
 
 const Backend_URL = process.env.NEXT_PUBLIC_BACKEND_NAME;
 const ProfilePage = async (props: Props) => {
+
     const session = await getServerSession(authOptions);
 
-    console.log(props.params.id)
+    console.log('Session token', session)
 
     const response = await fetch(Backend_URL + `/api/user/${props.params.id}`, {
         method: "GET",
@@ -20,7 +21,7 @@ const ProfilePage = async (props: Props) => {
             "Content-Type": "application/json",
         },
     });
-    // console.log({ response });
+
     const user = await response.json();
 
     return (
@@ -40,3 +41,4 @@ const ProfilePage = async (props: Props) => {
 };
 
 export default ProfilePage;
+
