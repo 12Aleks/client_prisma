@@ -1,5 +1,7 @@
-import Submenu from "@/components/Submenu";
-import {ReactNode} from "react";
+import React, {ReactNode} from "react";
+import Link from "next/link";
+import {getServerSession} from "next-auth";
+import {authOptions} from "@/app/api/auth/[...nextauth]/route";
 
 
 type Props = {
@@ -8,11 +10,14 @@ type Props = {
 
 const AdminPanelLayout = async (props: Props) => {
 
+    const session = await getServerSession(authOptions)
+
     return (
         <div className="grid grid-cols-12">
-            <Submenu/>
-            <div className="col-span-4 p-3">
-                <h4>Admin panel</h4>
+            <div className="col-span-1 border-r shadow h-screen p-2">
+                <Link href={`/adminpanel/user/${session?.user.id}`}>User profile</Link>
+            </div>
+            <div className="col-span-11 p-3">
                 {props.children}
             </div>
         </div>

@@ -12,8 +12,6 @@ const ProfilePage = async (props: Props) => {
 
     const session = await getServerSession(authOptions);
 
-    console.log('Session token', session)
-
     const response = await fetch(Backend_URL + `/api/user/${props.params.id}`, {
         method: "GET",
         headers: {
@@ -25,7 +23,7 @@ const ProfilePage = async (props: Props) => {
     const user = await response.json();
 
     return (
-        <div className="m-2 border rounded shadow overflow-hidden">
+        <div className="m-2 border rounded shadow overflow-hidden w-1/2">
             <div className="p-2 bg-gradient-to-b from-white to-slate-200 text-slate-600 text-center">
                 User Profile
             </div>

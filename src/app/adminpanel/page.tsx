@@ -6,9 +6,10 @@ type Props = {
 const AdminPanel = (props: Props) => {
 
     return (
-        <div className="grid grid-cols-12">
-
-        </div>
+        <>
+            <h4>Admin panel</h4>
+            <h5>Information about our users:</h5>
+        </>
     );
 };
 

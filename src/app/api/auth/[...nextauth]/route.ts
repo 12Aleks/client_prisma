@@ -1,10 +1,27 @@
 import {NextAuthOptions} from "next-auth";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
+import {JWT} from "next-auth/jwt";
 
 const Backend_URL = process.env.NEXT_PUBLIC_BACKEND_NAME;
 const secret = process.env.NEXT_AUTH_SECRET;
 
+//refresh token function
+async function refreshToken(token: JWT):Promise<JWT>{
+    const res = await fetch(Backend_URL + "/api/auth/refresh", {
+        method: "POST",
+        headers: {
+            authorization: `Refresh ${token.backendTokens.refreshToken}`
+        }
+    });
+
+    const response = await res.json();
+    console.log('Refresh')
+    return {
+        ...token,
+        backendTokens: response
+    }
+}
 
 export const authOptions: NextAuthOptions = {
     // Without secret don't work!!! (any long code)
@@ -53,7 +70,10 @@ export const authOptions: NextAuthOptions = {
 
         async jwt({ token, user }) {
             if (user) return { ...token, ...user };
-            return token
+            if(new Date().getTime() < token.backendTokens.expiresIn) return token;
+
+            //the access token is checked and its time is updated
+            return await refreshToken(token)
         },
 
     }
